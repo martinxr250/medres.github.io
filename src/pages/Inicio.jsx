@@ -66,6 +66,30 @@ def contar_libros_antiguos_y_caros(libros):
             count += 1
     return count
 
+def buscar_libro_menor_paginas(libros):
+    libros_con_paginas = [libro for libro in libros if 'paginas' in libro]
+    if not libros_con_paginas:
+        return None, None
+    libro_menor_paginas = libros_con_paginas[0]
+    for libro in libros_con_paginas[1:]:
+        if libro['paginas'] < libro_menor_paginas['paginas']:
+            libro_menor_paginas = libro
+    return libro_menor_paginas['titulo'], libro_menor_paginas['autor']
+
+def promedio_paginas_libros_antiguos(libros, current_year=2023):
+    libros_antiguos = [libro for libro in libros if 'paginas' in libro and (current_year - libro['ano']) > 5]
+    if not libros_antiguos:
+        return 0
+    suma_paginas = sum(libro['paginas'] for libro in libros_antiguos)
+    return suma_paginas / len(libros_antiguos)
+
+
+def buscar_libros_mas_de_1000_paginas(libros):
+    libros_mas_de_1000_paginas = [libro for libro in libros if 'paginas' in libro and libro['paginas'] > 1000]
+    count = len(libros_mas_de_1000_paginas)
+    titulos_y_autores = [(libro['titulo'], libro['autor']) for libro in libros_mas_de_1000_paginas]
+    return count, titulos_y_autores
+
 def main():
     libros = []
 
@@ -143,6 +167,23 @@ def main():
     count_antiguos_y_caros = contar_libros_antiguos_y_caros(libros)
     print(f"\nEl número de libros con más de 10 años y un precio mayor a 500 es: {count_antiguos_y_caros}")
 
+    titulo_menor_paginas, autor_menor_paginas = buscar_libro_menor_paginas(libros)
+    if titulo_menor_paginas and autor_menor_paginas:
+        print(f"\nEl libro con el menor número de páginas es '{titulo_menor_paginas}' de {autor_menor_paginas}")
+    else:
+        print("\nNo se ingresaron libros con número de páginas.")
+        
+    promedio_paginas_antiguos = promedio_paginas_libros_antiguos(libros)
+    print(f"\nEl promedio del número de páginas de los libros con más de 5 años es: {promedio_paginas_antiguos}")
+
+
+    count_libros_mas_de_1000_paginas, titulos_y_autores = buscar_libros_mas_de_1000_paginas(libros)
+    if count_libros_mas_de_1000_paginas > 0:
+        print(f"\La cantidad de libros con mas de 1000 páginas son: {count_libros_mas_de_1000_paginas}")
+        for titulo, autor in titulos_y_autores:
+            print(f"Título: {titulo}, Autor: {autor}")
+    else:
+        print("\nNo se ingresaron libros con más de 1000 páginas.")
 if __name__ == "__main__":
     main()
   `;
