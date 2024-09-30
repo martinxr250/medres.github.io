@@ -6,10 +6,6 @@ const LandingPage = () => {
 
   // Paste your code between the backticks below
   const professorCode = `
-# Crear un programa python que permita ingresar el titulo, autor, año de publicacion y precio de libros hasta que se ingresa en titulo la palabra FIN.
-# Solo dejar ingresar titulos en mayusculas.
-# Y solo dejar ingresar año de publicacion mayor a 2000.
-
 def promedio_ano_publicacion(libros):
     if not libros:
         return 0
@@ -19,7 +15,7 @@ def promedio_ano_publicacion(libros):
 def es_ano_valido(ano):
     if ano.isdigit():
         ano_int = int(ano)
-        if ano_int > 2000:
+        if 2000 < ano_int < 2025:
             return True, ano_int
         else:
             return False, None
@@ -31,6 +27,15 @@ def es_precio_valido(precio):
         return True, float(precio)
     else:
         return False, None
+    
+def buscar_libro_precio_mas_alto(libros):
+    if not libros:
+        return None, None
+    libro_mas_caro = libros[0]
+    for libro in libros[1:]:
+        if libro['precio'] > libro_mas_caro['precio']:
+            libro_mas_caro = libro
+    return libro_mas_caro['titulo'], libro_mas_caro['autor']
 
 def main():
     libros = []
@@ -50,7 +55,7 @@ def main():
             ano = input("Ingrese el año de publicación del libro: ")
             ano_valido, ano_int = es_ano_valido(ano)
             if not ano_valido:
-                print("El año de publicación debe ser un número mayor a 2000.")
+                print("El año de publicación debe ser un número mayor a 2000 y menor a 2024.")
 
         precio_valido = False
         while not precio_valido:
@@ -73,6 +78,12 @@ def main():
     promedio = promedio_ano_publicacion(libros)
     print(f"\nEl promedio del año de publicación de los libros ingresados es: {promedio}")
 
+    titulo_mas_caro, autor_mas_caro = buscar_libro_precio_mas_alto(libros)
+    if titulo_mas_caro and autor_mas_caro:
+        print(f"\nEl libro con el precio más alto es '{titulo_mas_caro}' de {autor_mas_caro}")
+    else:
+        print("\nNo se ingresaron libros.")
+        
 if __name__ == "__main__":
     main()
   `;
