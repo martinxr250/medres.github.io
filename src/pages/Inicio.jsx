@@ -12,6 +12,19 @@ def promedio_ano_publicacion(libros):
     suma_anos = sum(libro['ano'] for libro in libros)
     return suma_anos / len(libros)
 
+def promedio_precio_libros(libros):
+    if not libros:
+        return 0
+    suma_precios = sum(libro['precio'] for libro in libros)
+    return suma_precios / len(libros)
+
+def promedio_paginas_libros(libros):
+    libros_con_paginas = [libro for libro in libros if 'paginas' in libro]
+    if not libros_con_paginas:
+        return 0
+    suma_paginas = sum(libro['paginas'] for libro in libros_con_paginas)
+    return suma_paginas / len(libros_con_paginas)
+
 def es_ano_valido(ano):
     if ano.isdigit():
         ano_int = int(ano)
@@ -27,7 +40,7 @@ def es_precio_valido(precio):
         return True, float(precio)
     else:
         return False, None
-    
+
 def buscar_libro_precio_mas_alto(libros):
     if not libros:
         return None, None
@@ -53,12 +66,6 @@ def contar_libros_antiguos_y_caros(libros):
             count += 1
     return count
 
-def promedio_precio_libros(libros):
-    if not libros:
-        return 0
-    suma_precios = sum(libro['precio'] for libro in libros)
-    return suma_precios / len(libros)
-
 def main():
     libros = []
 
@@ -77,7 +84,7 @@ def main():
             ano = input("Ingrese el año de publicación del libro: ")
             ano_valido, ano_int = es_ano_valido(ano)
             if not ano_valido:
-                print("El año de publicación debe ser un número mayor a 2000 y menor a 2024.")
+                print("El año de publicación debe ser un número mayor a 2000 y menor a 2025.")
 
         precio_valido = False
         while not precio_valido:
@@ -86,37 +93,55 @@ def main():
             if not precio_valido:
                 print("El precio debe ser un número.")
 
-        libros.append({
+        libro = {
             "titulo": titulo,
             "autor": autor,
             "ano": ano_int,
             "precio": precio_float
-        })
+        }
+
+        if 2010 <= ano_int <= 2020:
+            paginas_valido = False
+            while not paginas_valido:
+                paginas = input("Ingrese el número de páginas del libro: ")
+                if paginas.isdigit():
+                    libro["paginas"] = int(paginas)
+                    paginas_valido = True
+                else:
+                    print("El número de páginas debe ser un número.")
+
+        libros.append(libro)
 
     print("\nLista de libros ingresados:")
     for libro in libros:
-        print(f"Título: {libro['titulo']}, Autor: {libro['autor']}, Año: {libro['ano']}, Precio: {libro['precio']}")
+        if 'paginas' in libro:
+            print(f"Título: {libro['titulo']}, Autor: {libro['autor']}, Año: {libro['ano']}, Precio: {libro['precio']}, Páginas: {libro['paginas']}")
+        else:
+            print(f"Título: {libro['titulo']}, Autor: {libro['autor']}, Año: {libro['ano']}, Precio: {libro['precio']}")
 
-    promedio = promedio_ano_publicacion(libros)
-    print(f"\nEl promedio del año de publicación de los libros ingresados es: {promedio}")
+    promedio_ano = promedio_ano_publicacion(libros)
+    print(f"\nEl promedio del año de publicación de los libros ingresados es: {promedio_ano}")
     
+    promedio_precio = promedio_precio_libros(libros)
+    print(f"\nEl promedio del precio de los libros ingresados es: {promedio_precio}")
+
+    promedio_paginas = promedio_paginas_libros(libros)
+    print(f"\nEl promedio del número de páginas de los libros ingresados es: {promedio_paginas}")
+
     titulo_mas_caro, autor_mas_caro = buscar_libro_precio_mas_alto(libros)
     if titulo_mas_caro and autor_mas_caro:
         print(f"\nEl libro con el precio más alto es '{titulo_mas_caro}' de {autor_mas_caro}")
     else:
-        print("\nNo se ingresaron libros para encontrar el precio mas alto.")
+        print("\nNo se ingresaron libros para encontrar el precio más alto.")
     
-        titulo_mas_reciente, autor_mas_reciente = buscar_libro_ano_mas_reciente(libros)
+    titulo_mas_reciente, autor_mas_reciente = buscar_libro_ano_mas_reciente(libros)
     if titulo_mas_reciente and autor_mas_reciente:
         print(f"\nEl libro con el año de publicación más reciente es '{titulo_mas_reciente}' de {autor_mas_reciente}")
     else:
-        print("\nNo se ingresaron libros para encontrar el publicado recientemente.")
+        print("\nNo se ingresaron libros para encontrar el publicado más recientemente.")
     
     count_antiguos_y_caros = contar_libros_antiguos_y_caros(libros)
     print(f"\nEl número de libros con más de 10 años y un precio mayor a 500 es: {count_antiguos_y_caros}")
- 
-    promedio_precio = promedio_precio_libros(libros)
-    print(f"\nEl promedio del precio de los libros ingresados es: {promedio_precio}")
 
 if __name__ == "__main__":
     main()
