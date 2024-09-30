@@ -185,7 +185,7 @@ def main():
     else:
         print("\nNo se ingresaron libros con más de 1000 páginas.")
 if __name__ == "__main__":
-    main()
+      main()
   `;
 
   useEffect(() => {
@@ -198,72 +198,74 @@ if __name__ == "__main__":
     setTimeout(() => setIsCopied(false), 2000);
   };
 
-  const styles = {
-    container: {
-      minHeight: '100vh',
-      backgroundColor: '#f3f4f6',
-      padding: '48px 16px',
-      fontFamily: 'Arial, sans-serif',
-    },
-    content: {
-      maxWidth: '800px',
-      margin: '0 auto',
-    },
-    title: {
-      fontSize: '28px',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      color: '#1f2937',
-      marginBottom: '32px',
-    },
-    card: {
-      backgroundColor: 'white',
-      borderRadius: '8px',
-      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      marginBottom: '32px',
-      overflow: 'hidden',
-    },
-    cardHeader: {
-      backgroundColor: '#e5e7eb',
-      padding: '16px',
-      borderBottom: '1px solid #d1d5db',
-    },
-    cardTitle: {
-      fontSize: '18px',
-      fontWeight: 'bold',
-      color: '#374151',
-    },
-    cardContent: {
-      padding: '16px',
-    },
-    codeBlock: {
-      backgroundColor: '#1f2937',
-      color: 'white',
-      padding: '16px',
-      borderRadius: '4px',
-      overflowX: 'auto',
-      fontSize: '14px',
-      fontFamily: 'monospace',
-      position: 'relative',
-    },
-    copyButton: {
-      position: 'absolute',
-      top: '8px',
-      right: '8px',
-      backgroundColor: '#3b82f6',
-      color: 'white',
-      border: 'none',
-      borderRadius: '4px',
-      padding: '6px 12px',
-      fontSize: '14px',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-    },
-    buttonIcon: {
-      marginRight: '4px',
-    },
-  };
+const styles = {
+  container: {
+    minHeight: '100vh',
+    backgroundColor: '#f3f4f6',
+    padding: '48px 16px',
+    fontFamily: 'Arial, sans-serif',
+  },
+  content: {
+    maxWidth: '800px',
+    margin: '0 auto',
+  },
+  title: {
+    fontSize: '28px',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#1f2937',
+    marginBottom: '32px',
+  },
+  card: {
+    width: '100%', // Cambiado de maxWidth a width
+    borderRadius: '8px',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    marginBottom: '32px',
+    overflow: 'hidden',
+  },
+  cardHeader: {
+    backgroundColor: '#e5e7eb',
+    padding: '16px',
+    borderBottom: '1px solid #d1d5db',
+  },
+  cardTitle: {
+    fontSize: '18px',
+    fontWeight: 'bold',
+    color: '#374151',
+    textAlign: 'center', // Alinear el título al centro
+  },
+  cardContent: {
+    padding: '16px',
+  },
+  codeBlock: {
+    backgroundColor: '#1f2937',
+    color: 'white',
+    padding: '16px',
+    borderRadius: '4px',
+    overflowX: 'auto',
+    fontSize: '14px',
+    fontFamily: 'monospace',
+    position: 'relative',
+  },
+  copyButton: {
+    position: 'absolute',
+    top: '8px',
+    right: '8px',
+    backgroundColor: '#3b82f6',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    padding: '6px 12px',
+    fontSize: '14px',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  buttonIcon: {
+    marginRight: '4px',
+  },
+};
+
 
   return (
     <div style={styles.container}>
