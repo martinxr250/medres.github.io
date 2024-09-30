@@ -6,11 +6,75 @@ const LandingPage = () => {
 
   // Paste your code between the backticks below
   const professorCode = `
-// Paste your code here
-// For example:
-function exampleFunction() {
-  console.log("Hello, students!");
-}
+# Crear un programa python que permita ingresar el titulo, autor, año de publicacion y precio de libros hasta que se ingresa en titulo la palabra FIN.
+# Solo dejar ingresar titulos en mayusculas.
+# Y solo dejar ingresar año de publicacion mayor a 2000.
+
+def promedio_ano_publicacion(libros):
+    if not libros:
+        return 0
+    suma_anos = sum(libro['ano'] for libro in libros)
+    return suma_anos / len(libros)
+
+def es_ano_valido(ano):
+    if ano.isdigit():
+        ano_int = int(ano)
+        if ano_int > 2000:
+            return True, ano_int
+        else:
+            return False, None
+    else:
+        return False, None
+
+def es_precio_valido(precio):
+    if precio.replace('.', '', 1).isdigit():
+        return True, float(precio)
+    else:
+        return False, None
+
+def main():
+    libros = []
+
+    while True:
+        titulo = input("Ingrese el título del libro (en mayúsculas, 'FIN' para terminar): ")
+        if titulo == "FIN":
+            break
+        elif titulo != titulo.upper():
+            print("El título debe estar en mayúsculas.")
+            continue
+
+        autor = input("Ingrese el autor del libro: ")
+
+        ano_valido = False
+        while not ano_valido:
+            ano = input("Ingrese el año de publicación del libro: ")
+            ano_valido, ano_int = es_ano_valido(ano)
+            if not ano_valido:
+                print("El año de publicación debe ser un número mayor a 2000.")
+
+        precio_valido = False
+        while not precio_valido:
+            precio = input("Ingrese el precio del libro: ")
+            precio_valido, precio_float = es_precio_valido(precio)
+            if not precio_valido:
+                print("El precio debe ser un número.")
+
+        libros.append({
+            "titulo": titulo,
+            "autor": autor,
+            "ano": ano_int,
+            "precio": precio_float
+        })
+
+    print("\nLista de libros ingresados:")
+    for libro in libros:
+        print(f"Título: {libro['titulo']}, Autor: {libro['autor']}, Año: {libro['ano']}, Precio: {libro['precio']}")
+
+    promedio = promedio_ano_publicacion(libros)
+    print(f"\nEl promedio del año de publicación de los libros ingresados es: {promedio}")
+
+if __name__ == "__main__":
+    main()
   `;
 
   useEffect(() => {
