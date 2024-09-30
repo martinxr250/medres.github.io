@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const LandingPage = () => {
   const [code, setCode] = useState('');
   const [isCopied, setIsCopied] = useState(false);
 
-  const handleCodeChange = (event) => {
-    setCode(event.target.value);
-  };
+  // Paste your code between the backticks below
+  const professorCode = `
+// Paste your code here
+// For example:
+function exampleFunction() {
+  console.log("Hello, students!");
+}
+  `;
+
+  useEffect(() => {
+    setCode(professorCode.trim());
+  }, []);
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(code);
@@ -52,16 +61,6 @@ const LandingPage = () => {
     cardContent: {
       padding: '16px',
     },
-    textarea: {
-      width: '100%',
-      minHeight: '200px',
-      padding: '8px',
-      fontSize: '14px',
-      fontFamily: 'monospace',
-      border: '1px solid #d1d5db',
-      borderRadius: '4px',
-      resize: 'vertical',
-    },
     codeBlock: {
       backgroundColor: '#1f2937',
       color: 'white',
@@ -96,20 +95,6 @@ const LandingPage = () => {
       <div style={styles.content}>
         <h1 style={styles.title}>Código del Profesor</h1>
         
-        <div style={styles.card}>
-          <div style={styles.cardHeader}>
-            <h2 style={styles.cardTitle}>Pegar Código (Profesor)</h2>
-          </div>
-          <div style={styles.cardContent}>
-            <textarea
-              placeholder="Pegue aquí el código..."
-              value={code}
-              onChange={handleCodeChange}
-              style={styles.textarea}
-            />
-          </div>
-        </div>
-
         <div style={styles.card}>
           <div style={styles.cardHeader}>
             <h2 style={styles.cardTitle}>Código para Copiar (Alumnos)</h2>
