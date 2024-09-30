@@ -37,6 +37,28 @@ def buscar_libro_precio_mas_alto(libros):
             libro_mas_caro = libro
     return libro_mas_caro['titulo'], libro_mas_caro['autor']
 
+def buscar_libro_ano_mas_reciente(libros):
+    if not libros:
+        return None, None
+    libro_mas_reciente = libros[0]
+    for libro in libros[1:]:
+        if libro['ano'] > libro_mas_reciente['ano']:
+            libro_mas_reciente = libro
+    return libro_mas_reciente['titulo'], libro_mas_reciente['autor']
+
+def contar_libros_antiguos_y_caros(libros):
+    count = 0
+    for libro in libros:
+        if libro['ano'] < 2013 and libro['precio'] > 500:
+            count += 1
+    return count
+
+def promedio_precio_libros(libros):
+    if not libros:
+        return 0
+    suma_precios = sum(libro['precio'] for libro in libros)
+    return suma_precios / len(libros)
+
 def main():
     libros = []
 
@@ -77,13 +99,25 @@ def main():
 
     promedio = promedio_ano_publicacion(libros)
     print(f"\nEl promedio del año de publicación de los libros ingresados es: {promedio}")
-
+    
     titulo_mas_caro, autor_mas_caro = buscar_libro_precio_mas_alto(libros)
     if titulo_mas_caro and autor_mas_caro:
         print(f"\nEl libro con el precio más alto es '{titulo_mas_caro}' de {autor_mas_caro}")
     else:
-        print("\nNo se ingresaron libros.")
-        
+        print("\nNo se ingresaron libros para encontrar el precio mas alto.")
+    
+        titulo_mas_reciente, autor_mas_reciente = buscar_libro_ano_mas_reciente(libros)
+    if titulo_mas_reciente and autor_mas_reciente:
+        print(f"\nEl libro con el año de publicación más reciente es '{titulo_mas_reciente}' de {autor_mas_reciente}")
+    else:
+        print("\nNo se ingresaron libros para encontrar el publicado recientemente.")
+    
+    count_antiguos_y_caros = contar_libros_antiguos_y_caros(libros)
+    print(f"\nEl número de libros con más de 10 años y un precio mayor a 500 es: {count_antiguos_y_caros}")
+ 
+    promedio_precio = promedio_precio_libros(libros)
+    print(f"\nEl promedio del precio de los libros ingresados es: {promedio_precio}")
+
 if __name__ == "__main__":
     main()
   `;
