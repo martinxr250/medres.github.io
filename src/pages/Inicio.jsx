@@ -3,22 +3,9 @@ import React, { useState } from 'react';
 const LandingPage = () => {
   const [code, setCode] = useState('');
   const [isCopied, setIsCopied] = useState(false);
-  const [fileName, setFileName] = useState('');
 
   const handleCodeChange = (event) => {
     setCode(event.target.value);
-  };
-
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setFileName(file.name);
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setCode(e.target.result);
-      };
-      reader.readAsText(file);
-    }
   };
 
   const handleCopyCode = () => {
@@ -102,51 +89,20 @@ const LandingPage = () => {
     buttonIcon: {
       marginRight: '4px',
     },
-    fileUpload: {
-      marginBottom: '16px',
-    },
-    fileInput: {
-      display: 'none',
-    },
-    fileLabel: {
-      backgroundColor: '#3b82f6',
-      color: 'white',
-      padding: '8px 16px',
-      borderRadius: '4px',
-      cursor: 'pointer',
-      display: 'inline-block',
-    },
-    fileName: {
-      marginLeft: '8px',
-      fontStyle: 'italic',
-    },
   };
 
   return (
     <div style={styles.container}>
       <div style={styles.content}>
-        <h1 style={styles.title}>Código Python del Profesor</h1>
+        <h1 style={styles.title}>Código del Profesor</h1>
         
         <div style={styles.card}>
           <div style={styles.cardHeader}>
-            <h2 style={styles.cardTitle}>Subir Código (Profesor)</h2>
+            <h2 style={styles.cardTitle}>Pegar Código (Profesor)</h2>
           </div>
           <div style={styles.cardContent}>
-            <div style={styles.fileUpload}>
-              <input
-                type="file"
-                id="fileInput"
-                accept=".jsx"
-                onChange={handleFileUpload}
-                style={styles.fileInput}
-              />
-              <label htmlFor="fileInput" style={styles.fileLabel}>
-                Subir archivo .jsx
-              </label>
-              {fileName && <span style={styles.fileName}>{fileName}</span>}
-            </div>
             <textarea
-              placeholder="Pegue aquí el código Python o suba un archivo .jsx..."
+              placeholder="Pegue aquí el código..."
               value={code}
               onChange={handleCodeChange}
               style={styles.textarea}
@@ -161,7 +117,7 @@ const LandingPage = () => {
           <div style={styles.cardContent}>
             <div style={styles.codeBlock}>
               <pre>
-                <code>{code || 'El profesor aún no ha subido ningún código.'}</code>
+                <code>{code || 'El profesor aún no ha pegado ningún código.'}</code>
               </pre>
               {code && (
                 <button onClick={handleCopyCode} style={styles.copyButton}>
